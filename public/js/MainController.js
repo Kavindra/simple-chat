@@ -157,7 +157,7 @@
         * When a contact disconnected event received from the server, display a desktop notification.
         * */
         function userDisconnected(data) {
-            chatNotify(data.username, 'Disconnected');
+            if(data.username) chatNotify(data.username, 'Disconnected');
             $scope.listOfUsers = $scope.listOfUsers.filter(user => user.id !== data.id);
             $scope.$apply();
         }
