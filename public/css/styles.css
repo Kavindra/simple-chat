@@ -1,0 +1,64 @@
+.chat-window {
+    border: solid 1px;
+    background-color: ghostwhite;
+    width: 300px;
+    margin: 5px;
+    height: 400px;
+    overflow-x: hidden;/*No horizontal scrolling*/
+    float: left;
+    position: relative;
+    overflow-y: auto;
+}
+
+.inner-chat {
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:25px;
+    overflow-y:auto;
+    overflow-x: hidden;
+}
+
+.chat-input {
+    width: 296px;
+    margin: 2px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.private-chats {
+    width: 100%;
+}
+
+.close-btn {
+    float: right;
+}
+
+.self-chat {
+    color: green;
+}
+
+.contact-chat {
+    color: blue;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.typing-message {
+    color: rgba(66, 66, 66, 0.98);
+    position: absolute;
+    bottom: 30px;
+    left: 5px;
+}
+
+.contacts {
+    width: auto;
+    display: inline-block;
+}
+
+.contacts ul li:hover > span{
+    color: blue;
+}

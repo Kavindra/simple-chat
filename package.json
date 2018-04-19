@@ -1,0 +1,16 @@
+{
+  "name": "simple-chat",
+  "version": "0.0.1",
+  "description": "Simple chat application.",
+  "main": "server.js",
+  "author": "Kavindra Kumari",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "~1.5.2",
+    "express": "~4.7.2",
+    "morgan": "~1.2.2",
+    "socket.io": "^2.1.0"
+  }
+}
