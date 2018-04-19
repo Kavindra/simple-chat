@@ -5,7 +5,8 @@
   "main": "server.js",
   "author": "Kavindra Kumari",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "bower install"
   },
   "dependencies": {
     "body-parser": "~1.5.2",
