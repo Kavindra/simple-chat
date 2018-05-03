@@ -334,13 +334,24 @@
         * */
         $scope.disconnect = function () {
             socket.disconnect();
-        }
+            $scope.registered = null; // Show the Reconnect button.
+        };
 
         /*
         * If the user closes the browser tab, disconnect the socket and server broadcasts an event to other clients.
         * */
         $window.onunload = function (event) {
             socket.disconnect();
+        };
+
+        /*
+        * If the user disconnected voluntarily by clicking on the disconnect button,
+        * he can connect again using the 'Reconnect' button without refreshing the page.
+        * This function is called when the user clicked on Reconnect button.
+        * */
+        $scope.reconnect = function () {
+            socket.connect('');
+            $scope.registered = 'false';
         }
 
     }

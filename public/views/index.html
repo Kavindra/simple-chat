@@ -32,8 +32,9 @@
 
     <!-- Section to enter the username for register to the channel. -->
     <div ng-hide="registered === true">
-        <input id="chat_name" placeholder="Enter your name" type="text" ng-model="chatName">
-        <input type="button" value="Register" ng-click="register()">
+        <input id="chat_name" placeholder="Enter your name or email" type="text" ng-model="chatName" ng-hide="registered === null">
+        <input type="button" value="Register" ng-click="register()" ng-hide="registered === null">
+        <input type="button" value="Reconnect" ng-click="reconnect()" ng-show="registered === null">
     </div>
     <!-- Display the message if the username already exists -->
     <p ng-show="registered == false">A user with that name is already exists. Please try another user name or email.</p>
