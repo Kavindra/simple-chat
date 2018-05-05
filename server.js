@@ -2,6 +2,19 @@ var express  = require('express');
 var app      = express(); // Create the app with express
 var morgan = require('morgan');
 var crypto = require('crypto'); // Use to create md5 hash of email.
+var fs = require('fs');
+var https = require('https');
+
+// Loading SSL certificates.
+var key = fs.readFileSync(__dirname + '/encryption/private.key');
+var cert = fs.readFileSync(__dirname +  '/encryption/certificate.crt' );
+var ca = fs.readFileSync(__dirname +  '/encryption/ca_bundle.crt' );
+
+var options = {
+    key: key,
+    cert: cert,
+    ca: ca
+};
 
 app.use(express.static(__dirname + '/public')); // Set the static files location /public
 app.use(morgan('dev')); // Log all the requests to the console
@@ -11,8 +24,18 @@ app.get('*', function(req, res) {
 });
 
 // Start the app with Nodejs on port 8080
-var io = require('socket.io').listen(app.listen(8080));
-console.log("App listening on port 8080");
+//var io = require('socket.io').listen(app.listen(8080));
+//console.log("App listening on port 8080");
+
+// Start the https server in port 443
+var serverPort = 443;
+
+var server = https.createServer(options, app);
+var io = require('socket.io')(server);
+
+server.listen(serverPort, function() {
+    console.log('server up and running at %s port', serverPort);
+});
 
 // Store all the connected users in an array. This is used to send the list of connected users to the users join later.
 var listOfusers = [];
@@ -144,3 +167,4 @@ io.sockets.on("disconnect", (socket) => {
         id: socket.id
     });
 });
+
