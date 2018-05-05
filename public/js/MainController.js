@@ -5,8 +5,8 @@
         .module('simpleChat')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['$rootScope', '$scope', '$window'];
-    function MainController($rootScope, $scope, $window) {
+    MainController.$inject = ['$rootScope', '$scope', '$window', '$interval'];
+    function MainController($rootScope, $scope, $window, $interval) {
         // scope and global variables.
         $scope.chatMessage = '';
         $scope.status = 'Not Connected';
@@ -406,8 +406,22 @@
         $scope.openFile = function (fileEncoded) {
             var blob = dataURItoBlob(fileEncoded);
             var file = new File([blob]);
-            //console.log(file);
+            console.log(file);
         }
+
+        function checkConnection() {
+            socket.emit('ping', function (data) {
+                console.log(data);
+            });
+            /*$interval(function() {
+                console.log('checkConnection');
+                socket.send('ping', function (data) {
+                    console.log(data);
+                });
+            }, 15000);*/
+        }
+
+        checkConnection();
     }
 })();
 
