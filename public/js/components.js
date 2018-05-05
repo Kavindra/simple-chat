@@ -49,11 +49,21 @@ angular.module('components', [])
         return {
             restrict: 'E',
             transclude: true,
-            scope: { message: '=' },
+            scope: {
+                message: '=',
+                openFile: "&"
+            },
             template:
             `<div>
                 <span ng-class="message.self ? 'self-chat' : 'contact-chat'"><b>{{message.sender}}:</b></span>
-                <span> {{message.text}}</span>
+                <span ng-if="message.file" style="color: blue">
+                <!--<a target='_blank' download='{{message.text}}' href='{{message.file}}'>{{message.text}}</a>-->
+                 <a target='_blank' href='data:image/png;base64,{{message.file.substring(23)}}'>
+                 <img ng-src="data:image/png;base64,{{message.file.substring(23)}}" alt="{{message.text}}" width="100px" height="100px">
+                 <!--{{message.text}}-->
+                 </a>
+                 </span>
+                <span ng-if="!message.file"> {{message.text}}</span>
             </div>`,
             replace: true
         };

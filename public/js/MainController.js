@@ -97,6 +97,12 @@
             stopTypingMessage(data);
         });
 
+        socket.on('base64 file', function (msg) {
+            console.log(msg);
+            //{sender: data.username, text: data.message, self: data.self}
+            $scope.$apply(() => {addChatMessage({username: msg.username, message: msg.fileName, file: msg.file});});
+        });
+
         /*
         * Console log the message if server sends any error event.
         * */
@@ -234,7 +240,7 @@
         * Update the messages array to display the message in the group chat area.
         * */
         function addChatMessage (data) {
-            $scope.messages.push({sender: data.username, text: data.message, self: data.self});
+            $scope.messages.push({sender: data.username, text: data.message, self: data.self, file: data.file});
         }
 
         /*
@@ -352,8 +358,56 @@
         $scope.reconnect = function () {
             socket.connect('');
             $scope.registered = 'false';
+        };
+
+        /*
+        * Send files. This is called when the user selected a file using browse button.
+        * Working only for images at the moment.
+        * */
+        $scope.sendFile = function () {
+            var data = document.getElementById('file').files[0];
+
+            var reader = new FileReader();
+            reader.onload = function(evt){
+                var msg ={};
+                msg.username = $scope.chatName;
+                msg.file = evt.target.result;
+                msg.fileName = data.name;
+                //console.log(msg);
+                socket.emit('base64_file', msg);
+            };
+            reader.readAsDataURL(data);
+        };
+
+        /*
+        * Convert data URI to blob.
+        * */
+        function dataURItoBlob(dataURI) {
+
+            // convert base64/URLEncoded data component to raw binary data held in a string
+            var byteString;
+            if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                byteString = atob(dataURI.split(',')[1]);
+            else
+                byteString = unescape(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+            // write the bytes of the string to a typed array
+            var ia = new Uint8Array(byteString.length);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            return new Blob([ia], {type:mimeString});
         }
 
+        $scope.openFile = function (fileEncoded) {
+            var blob = dataURItoBlob(fileEncoded);
+            var file = new File([blob]);
+            //console.log(file);
+        }
     }
 })();
 

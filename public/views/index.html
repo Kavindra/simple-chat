@@ -50,6 +50,7 @@
             <ul>
                 <li ng-repeat="msg in messages">
                     <chat-message message="msg"></chat-message>
+                    <!--<chat-message message="msg" open-file="openFile(msg)"></chat-message>-->
                 </li>
             </ul>
         </div>
@@ -59,9 +60,20 @@
             <!-- In order to make a fixed space to display 'X is typing'. This space should be there even when the typing message is not there. Otherwise the input field bounces everytime with when message appears ans disappears.-->
             <span>&nbsp;</span>
         </div>
-        <input class="chat-input" id="field" placeholder="Type here" type="text" ng-model="chatMessage" handle-enter="sendChat()" ng-change="updateTyping()">
-        <!--<input type="button" value="Go" id="btn" ng-click="sendChat()">-->
+        <div class="chat-input">
+            <input id="field" placeholder="Type here" style="width: 230px;" type="text" ng-model="chatMessage" handle-enter="sendChat()" ng-change="updateTyping()">
+            <!--<input type="button" value="Go" id="btn" ng-click="sendChat()">-->
+            <label class="btn browse" for = "file">
+                <!--<input id="socketchatbox-sendMedia" type="file" style="display:none;" ng-change="sendFile()" ng-model="file_send">-->
+                <input id="file" type="file" style="display:none;" onchange="angular.element(this).scope().sendFile()">
+                Browse
+            </label>
+            <!--<button ng-click="sendFile()">Add</button>-->
+        </div>
+
     </div>
+    <!--<input type="file" id="file" name="file"/>
+    <button ng-click="sendFile()">Add</button>-->
 
     <!-- Private chats area -->
     <div class="private-chats">
@@ -81,6 +93,8 @@
             </div>
             <!-- Input field for typing chat messages. -->
             <input class="chat-input" placeholder="Type here" type="text" ng-model="privateChatMessage[$index]" handle-enter="sendPrivateChat(user)" ng-change="updateTyping(user)">
+            <!--<input type="file" id="file" name="file"/>
+            <button ng-click="sendFile()">Add</button>-->
         </div>
     </div>
 

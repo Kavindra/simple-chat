@@ -62,3 +62,9 @@ ul {
 .contacts ul li:hover > span{
     color: blue;
 }
+
+.browse {
+    background-color: aquamarine;
+    padding: 2px;
+    border: 1px solid;
+}

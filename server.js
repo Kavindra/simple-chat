@@ -118,6 +118,16 @@ io.sockets.on("connection", (socket) => {
             });
             listOfusers = listOfusers.filter(user => user.id !== socket.id);
         });
+
+        // Listening to messages with files.
+        socket.on('base64_file', function (msg) {
+            socket.username = msg.username;
+            socket.broadcast.emit('base64 file', {
+                username: socket.username,
+                file: msg.file,
+                fileName: msg.fileName
+            });
+        });
     })
 });
 
