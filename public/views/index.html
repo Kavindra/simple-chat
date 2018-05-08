@@ -80,11 +80,13 @@
         <!-- Create a chat window for each of the private chats -->
         <div ng-show="privateChats.length" ng-repeat="user in privateChats" class="chat-window">
             <chat-title user="user" close-chat-window="closeChatWindow(user)"></chat-title>
-            <ul>
-                <li ng-repeat="msg in privateMessages[user.id]">
-                    <chat-message message="msg"></chat-message>
-                </li>
-            </ul>
+            <div class="inner-chat">
+                <ul>
+                    <li ng-repeat="msg in privateMessages[user.id]">
+                        <chat-message message="msg"></chat-message>
+                    </li>
+                </ul>
+            </div>
             <!-- Display the typing message -->
             <div class="typing-message">
                 <span>{{privateTypingMessage[user.username]}}</span>

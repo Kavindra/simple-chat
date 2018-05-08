@@ -13,7 +13,7 @@
 .inner-chat {
     position:absolute;
     left:0;
-    top:0;
+    top:25px;
     right:0;
     bottom:25px;
     overflow-y:auto;
