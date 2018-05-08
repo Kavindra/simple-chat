@@ -76,7 +76,7 @@
     <button ng-click="sendFile()">Add</button>-->
 
     <!-- Private chats area -->
-    <div class="private-chats">
+    <div class="private-chats" ng-show="registered === true">
         <!-- Create a chat window for each of the private chats -->
         <div ng-show="privateChats.length" ng-repeat="user in privateChats" class="chat-window">
             <chat-title user="user" close-chat-window="closeChatWindow(user)"></chat-title>

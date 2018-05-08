@@ -25,7 +25,7 @@
         var lastTypingTime;
         const TYPING_TIMER_LENGTH = 1000;
 
-        var socket = io.connect(window.location.host);
+        var socket = io(window.location.host);
 
         /*
         * When the user is connected, update the status of the connection as 'Connected'
@@ -408,20 +408,6 @@
             var file = new File([blob]);
             console.log(file);
         }
-
-        function checkConnection() {
-            socket.emit('ping', function (data) {
-                console.log(data);
-            });
-            /*$interval(function() {
-                console.log('checkConnection');
-                socket.send('ping', function (data) {
-                    console.log(data);
-                });
-            }, 15000);*/
-        }
-
-        checkConnection();
     }
 })();
 

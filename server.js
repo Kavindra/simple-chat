@@ -151,12 +151,8 @@ io.sockets.on("connection", (socket) => {
                 fileName: msg.fileName
             });
         });
-        
 
-    });
-    socket.on('ping', function (data, callback) {
-        console.log(data);
-        callback('ok');
+
     });
 });
 
